@@ -1,5 +1,7 @@
 # Advent of Code 2022
 
+![CI](https://github.com/justinhorton/adventofcode2022/actions/workflows/build.yml/badge.svg)
+
 [Advent of Code 2022](https://adventofcode.com/2022/) using [Kotlin](https://kotlinlang.org/).
 
 ## Command Line Usage
