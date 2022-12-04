@@ -44,3 +44,17 @@ kotlin {
         }
     }
 }
+
+tasks.register("runAll") {
+    doLast {
+        exec {
+            commandLine("sh", "./run.sh")
+        }
+    }
+    
+    dependsOn.add(tasks.getByName("assemble"))
+}
+
+tasks.getByName("check") {
+    dependsOn.add(tasks.getByName("runAll"))
+}

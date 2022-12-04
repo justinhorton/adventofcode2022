@@ -47,7 +47,7 @@ fun main(args: Array<String>) {
         it.buffer().readUtf8()
     }
 
-    println("${parser.programName} >> DAY $dayArg >> $inputPath")
+    println("${parser.programName} >> DAY $dayArg ($inputPath)")
     day(dayArg, fileContents)?.let { day ->
         val ans1 = day.part1()
         println("--> ${matchText(expectedAns1, ans1)}$dayArg.1: $ans1")
@@ -71,6 +71,7 @@ fun day(dayNum: Int, input: String): Day? {
         1 -> ::Day01
         2 -> ::Day02
         3 -> ::Day03
+        4 -> ::Day04
         else -> null
     }
     return cons?.invoke(input)
