@@ -45,16 +45,16 @@ kotlin {
     }
 }
 
-tasks.register("runAll") {
+tasks.register("runDays") {
     doLast {
         exec {
-            commandLine("sh", "./run.sh")
+            commandLine("sh", "./run-days.sh")
         }
     }
-    
+
     dependsOn.add(tasks.getByName("assemble"))
 }
 
 tasks.getByName("check") {
-    dependsOn.add(tasks.getByName("runAll"))
+    dependsOn.add(tasks.getByName("runDays"))
 }

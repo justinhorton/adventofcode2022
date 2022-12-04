@@ -14,7 +14,7 @@ fun main(args: Array<String>) {
     val dayArg by parser.option(
         ArgType.Int,
         shortName = "d",
-        fullName = "aoc2022.day",
+        fullName = "day",
         description = "Day number"
     ).required()
     val inputFileArg by parser.option(
@@ -47,7 +47,7 @@ fun main(args: Array<String>) {
         it.buffer().readUtf8()
     }
 
-    println("${parser.programName} >> DAY $dayArg ($inputPath)")
+    println("DAY $dayArg ($inputPath)")
     day(dayArg, fileContents)?.let { day ->
         val ans1 = day.part1()
         println("--> ${matchText(expectedAns1, ans1)}$dayArg.1: $ans1")

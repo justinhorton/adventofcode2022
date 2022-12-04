@@ -1,7 +1,7 @@
 package xyz.justinhorton.aoc2022
 
 /**
- * https://adventofcode.com/2022/aoc2022.day/1
+ * https://adventofcode.com/2022/day/1
  */
 class Day01(override val input: String) : Day() {
     override fun part1(): String {
