@@ -48,7 +48,7 @@ kotlin {
 tasks.register("runDays") {
     doLast {
         exec {
-            commandLine("sh", "./run-days.sh")
+            commandLine("bash", "./run-days.sh")
         }
     }
 
