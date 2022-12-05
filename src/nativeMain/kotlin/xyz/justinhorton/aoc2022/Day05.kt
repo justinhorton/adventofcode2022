@@ -5,27 +5,22 @@ package xyz.justinhorton.aoc2022
  */
 class Day05(override val input: String) : Day() {
     private val inputStacks: Map<Int, List<Char>> = run {
-        val stacks = mutableMapOf<Int, MutableList<Char>>()
-
         input.split("\n\n")[0].let { initialStacksInput ->
-            initialStacksInput.lines()
-                .dropLast(1)
-                .forEach { line ->
-                    var slot = 0
-                    line.forEachIndexed { i, ch ->
-                        // every 4th char is the start of the next slot column
-                        // [X] [Y] => chars 0-3 = slot 1, 4-6 = slot 2
-                        if (i % 4 == 0) {
-                            slot++
-                        }
+            val stackLabels = initialStacksInput.trim().lines().last()
 
-                        if (ch.isUpperCase()) {
-                            stacks.getOrPut(slot) { mutableListOf() }.add(ch)
-                        }
-                    }
-                }
-            stacks
-        }
+            // all lines in the first section are the same length...find the indices for the columns with item chars
+            val stackCols = stackLabels.mapIndexedNotNull { col, ch ->
+                if (ch.isDigit()) col else null
+            }
+            val itemLines = initialStacksInput.trim()
+                .lines()
+                .dropLast(1)
+
+            // map stack # to chars in stack
+            stackCols.mapIndexed { i, col ->
+                (i + 1) to itemLines.map { l -> l[col] }.filter { it.isUpperCase() }
+            }
+        }.toMap()
     }
 
     private val inputMoves: List<Triple<Int, Int, Int>> = run {
