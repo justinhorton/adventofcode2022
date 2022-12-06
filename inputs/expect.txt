@@ -8,3 +8,5 @@
 4,04-s1.txt,2,4
 5,05-s1.txt,CMZ,MCD
 5,05.txt,TDCHVHJTG,NGCMPJLHV
+6,06-s1.txt,7,19
+6,06.txt,1100,2421
