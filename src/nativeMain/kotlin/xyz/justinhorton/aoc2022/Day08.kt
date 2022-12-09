@@ -1,6 +1,6 @@
 package xyz.justinhorton.aoc2022
 
-import platform.posix.abs
+import kotlin.math.abs
 
 /**
  * https://adventofcode.com/2022/day/8
