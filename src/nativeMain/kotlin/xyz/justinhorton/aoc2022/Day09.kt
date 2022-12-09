@@ -1,6 +1,7 @@
 package xyz.justinhorton.aoc2022
 
 import kotlin.math.abs
+
 /**
  * https://adventofcode.com/2022/day/9
  */
@@ -50,7 +51,7 @@ class Day09(override val input: String) : Day() {
         return seenTailPos.size.toString()
     }
 
-    private fun computeUpdatedHead(headPos: Point, dir: String) = headPos.copy(
+    private fun computeUpdatedHead(headPos: Point, dir: String) = Point(
         x = headPos.x + when (dir) {
             "L" -> -1
             "R" -> 1
@@ -76,13 +77,13 @@ class Day09(override val input: String) : Day() {
             tailPos
         } else if (abs(dx) == 2 && abs(dy) == 0 || abs(dy) == 2 && abs(dx) == 0) {
             // directly above, below, left, right (and not touching)
-            tailPos.copy(
+            Point(
                 x = tailPos.x + if (dx == 0) 0 else dx / abs(dx),
                 y = tailPos.y + if (dy == 0) 0 else dy / abs(dy)
             )
         } else {
             // diagonal
-            tailPos.copy(x = tailPos.x + dx / abs(dx), y = tailPos.y + dy / abs(dy))
+            Point(x = tailPos.x + dx / abs(dx), y = tailPos.y + dy / abs(dy))
         }
     }
 }
