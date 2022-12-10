@@ -57,14 +57,27 @@ fun main(args: Array<String>) {
     } ?: println("--> No solution (yet)")
 }
 
-private fun matchText(expected: String?, actual: String) =
-    expected?.let {
-        if (it == actual) {
-            " ✅ "
-        } else {
-            " ❌ "
+private fun matchText(expected: String?, actual: String): String {
+    return when (expected) {
+        null, UNKNOWN_ANSWER -> ""
+        else -> {
+            val expectedResolved = if (expected.endsWith(".txt")) {
+                // read multi-line input from file
+                FileSystem.SYSTEM.source(INPUTS_BASE.toPath().resolve(expected)).use { src ->
+                    src.buffer().readUtf8()
+                }
+            } else {
+                expected
+            }
+
+            if (expectedResolved.trim() == actual.trim()) {
+                " ✅ "
+            } else {
+                " ❌ "
+            }
         }
-    } ?: ""
+    }
+}
 
 fun day(dayNum: Int, input: String): Day? {
     val cons: ((String) -> Day)? = when (dayNum) {
@@ -77,6 +90,7 @@ fun day(dayNum: Int, input: String): Day? {
         7 -> ::Day07
         8 -> ::Day08
         9 -> ::Day09
+        10 -> ::Day10
         else -> null
     }
     return cons?.invoke(input)
@@ -85,3 +99,4 @@ fun day(dayNum: Int, input: String): Day? {
 fun defaultInputPath(i: Int): Path = INPUTS_BASE.toPath().resolve("""${i.toString().padStart(2, '0')}.txt""")
 
 private const val INPUTS_BASE = "inputs"
+private const val UNKNOWN_ANSWER = "?"
