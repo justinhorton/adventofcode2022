@@ -12,9 +12,7 @@ class Day05(override val input: String) : Day() {
             val stackCols = stackLabels.mapIndexedNotNull { col, ch ->
                 if (ch.isDigit()) col else null
             }
-            val itemLines = initialStacksInput.trim()
-                .lines()
-                .dropLast(1)
+            val itemLines = initialStacksInput.lines().dropLast(1)
 
             // map stack # to chars in stack
             stackCols.mapIndexed { i, col ->

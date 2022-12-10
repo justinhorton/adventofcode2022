@@ -13,7 +13,7 @@ while IFS="," read -r day inputFile ans1 ans2; do
 	
 	echo $output >> build/results.txt
 	
-	if [[ $output == *"❌"* ]]; then
+	if [[ $output == *"❌"* || $output == *"Exception"*  ]]; then
 		printf "FAILED"
 		printf "%s" $output
 		all_passed=0
