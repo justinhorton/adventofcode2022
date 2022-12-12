@@ -7,45 +7,67 @@ data class Grid<T : Any>(private val data: List<List<T>>) {
     val width: Int
         get() = data.first().size
 
-    fun enumerateCoordinates(): Sequence<Pair<Int, Int>> {
+    fun enumeratePoints(): Sequence<GPoint> {
         return sequence {
             for (x in 0 until width) {
                 for (y in 0 until height) {
-                    yield(x to y)
+                    yield(GPoint(x, y))
                 }
             }
         }
     }
 
-    fun adjacentCoordinates(x: Int, y: Int, dir: Direction): Sequence<Pair<Int, Int>> {
+    fun adjacentPoints(p: GPoint): Sequence<GPoint> {
+        val (x, y) = p
+        return sequence {
+            GPoint(x - 1, y).run { getOrNull(this)?.let { yield(this) } }
+            GPoint(x + 1, y).run { getOrNull(this)?.let { yield(this) } }
+            GPoint(x, y - 1).run { getOrNull(this)?.let { yield(this) } }
+            GPoint(x, y + 1).run { getOrNull(this)?.let { yield(this) } }
+        }
+    }
+
+    fun pointsInDirection(x: Int, y: Int, dir: Direction): Sequence<GPoint> {
         return sequence {
             when (dir) {
                 Direction.Up -> {
                     for (x1 in (x - 1) downTo 0) {
-                        yield(x1 to y)
+                        yield(GPoint(x1, y))
                     }
                 }
                 Direction.Down -> {
                     for (x1 in (x + 1) until width) {
-                        yield(x1 to y)
+                        yield(GPoint(x1, y))
                     }
                 }
                 Direction.Left -> {
                     for (y1 in (y - 1) downTo 0) {
-                        yield(x to y1)
+                        yield(GPoint(x, y1))
                     }
                 }
                 Direction.Right -> {
                     for (y1 in (y + 1) until width) {
-                        yield(x to y1)
+                        yield(GPoint(x, y1))
                     }
                 }
             }
         }
     }
 
-    operator fun get(coords: Pair<Int, Int>): T {
-        return coords.let { (x, y) -> data[y][x] }
+    operator fun get(p: GPoint): T {
+        return p.let { (x, y) -> data[y][x] }
+    }
+
+    operator fun get(xy: Pair<Int, Int>): T {
+        return xy.let { (x, y) -> data[y][x] }
+    }
+
+    fun getOrNull(p: GPoint): T? {
+        return if (p.x < 0 || p.y < 0 || p.x >= width || p.y >= height) {
+            null
+        } else {
+            data[p.y][p.x]
+        }
     }
 
     fun getOrNull(x: Int, y: Int): T? {
@@ -54,6 +76,10 @@ data class Grid<T : Any>(private val data: List<List<T>>) {
         } else {
             data[y][x]
         }
+    }
+
+    override fun toString(): String {
+        return data.joinToString(separator = "\n") { it.joinToString(separator = "") }
     }
 
     companion object {
@@ -75,3 +101,5 @@ enum class Direction {
     Left,
     Right
 }
+
+data class GPoint(val x: Int, val y: Int)
