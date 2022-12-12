@@ -50,10 +50,8 @@ class Day12(override val input: String) : Day() {
                 return parents
             }
 
-            val nextCh = grid[next].let { if (it == 'S') 'a' else it }
-            val isAllowedTransition: (GPoint) -> Boolean = {
-                (grid[it].let { ch -> if (ch == 'E') 'z' else ch } - nextCh) <= 1
-            }
+            val nextCh = if (next == start) 'a' else grid[next]
+            val isAllowedTransition: (GPoint) -> Boolean = { (if (it == goal) 'z' else grid[it]) - nextCh <= 1 }
 
             for (a in grid.adjacentPoints(next).filter(isAllowedTransition).filterNot { it in visited }) {
                 visited += a
