@@ -3,7 +3,7 @@ package xyz.justinhorton.aoc2022
 import kotlin.math.min
 
 /**
- * https://adventofcode.com/2022/day/11
+ * https://adventofcode.com/2022/day/12
  */
 class Day12(override val input: String) : Day() {
     override fun part1(): String {

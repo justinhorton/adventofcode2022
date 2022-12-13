@@ -93,6 +93,7 @@ fun day(dayNum: Int, input: String): Day? {
         10 -> ::Day10
         11 -> ::Day11
         12 -> ::Day12
+        13 -> ::Day13
         else -> null
     }
     return cons?.invoke(input)
