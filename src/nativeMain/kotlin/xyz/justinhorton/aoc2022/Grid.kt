@@ -102,4 +102,8 @@ enum class Direction {
     Right
 }
 
-data class GPoint(val x: Int, val y: Int)
+data class GPoint(val x: Int, val y: Int) {
+    constructor(pair: Pair<Int, Int>) : this(pair.first, pair.second)
+
+    override fun toString(): String = "($x, $y)"
+}
